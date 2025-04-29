@@ -4,8 +4,13 @@
  */
 package sistemreservasihotel.dialog;
 
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import javax.swing.table.DefaultTableModel;
+import sistemreservasihotel.helper.DatabaseConnection;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,6 +24,7 @@ public class GuestsDataMasterDialog extends javax.swing.JDialog {
     public GuestsDataMasterDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        loadGuestData();
     }
 
     /**
@@ -33,8 +39,8 @@ public class GuestsDataMasterDialog extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        tblGuests = new javax.swing.JTable();
+        btnDeleteRowGuest = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -44,7 +50,7 @@ public class GuestsDataMasterDialog extends javax.swing.JDialog {
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
         jLabel1.setText("DATA MASTER GUESTS");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblGuests.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -55,12 +61,12 @@ public class GuestsDataMasterDialog extends javax.swing.JDialog {
                 "ID", "Nama", "Alamat", "No. HP", "Email"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblGuests);
 
-        jButton1.setText("Hapus");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnDeleteRowGuest.setText("Hapus");
+        btnDeleteRowGuest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnDeleteRowGuestActionPerformed(evt);
             }
         });
 
@@ -84,7 +90,7 @@ public class GuestsDataMasterDialog extends javax.swing.JDialog {
                         .addGap(30, 30, 30)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnDeleteRowGuest, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(477, 477, 477)
                                 .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 685, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -100,7 +106,7 @@ public class GuestsDataMasterDialog extends javax.swing.JDialog {
                 .addGap(50, 50, 50)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnDeleteRowGuest, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(44, Short.MAX_VALUE))
         );
 
@@ -118,12 +124,50 @@ public class GuestsDataMasterDialog extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnDeleteRowGuestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteRowGuestActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        int selectedRow = tblGuests.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Pilih baris tamu yang ingin dihapus.");
+            return;
+        }
+
+        int confirm = JOptionPane.showConfirmDialog(
+            this,
+            "Yakin ingin menghapus data tamu ini?",
+            "Konfirmasi Hapus",
+            JOptionPane.YES_NO_OPTION
+        );
+
+        if (confirm != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        // Ambil ID dari kolom pertama (guest_id)
+        int guestId = (int) tblGuests.getValueAt(selectedRow, 0);
+
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            String sql = "DELETE FROM guests WHERE guest_id = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, guestId);
+            int affectedRows = stmt.executeUpdate();
+            stmt.close();
+
+            if (affectedRows > 0) {
+                JOptionPane.showMessageDialog(this, "Data tamu berhasil dihapus.");
+                loadGuestData(); // refresh tabel
+            } else {
+                JOptionPane.showMessageDialog(this, "Data tamu tidak ditemukan di database.");
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Gagal menghapus data: " + e.getMessage());
+        }
+    }//GEN-LAST:event_btnDeleteRowGuestActionPerformed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_btnExitActionPerformed
 
     /**
@@ -167,13 +211,44 @@ public class GuestsDataMasterDialog extends javax.swing.JDialog {
             }
         });
     }
+    
+    
+    
+    private void loadGuestData() {
+        DefaultTableModel model = (DefaultTableModel) tblGuests.getModel();
+        model.setRowCount(0); // bersihkan tabel sebelum isi ulang
+
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            String sql = "SELECT guest_id, name, address, phone_number, email FROM guests";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Object[] row = {
+                    rs.getInt("guest_id"),
+                    rs.getString("name"),
+                    rs.getString("address"),
+                    rs.getString("phone_number"),
+                    rs.getString("email")
+                };
+                model.addRow(row);
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Gagal memuat data tamu: " + e.getMessage());
+        }
+    }
+
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDeleteRowGuest;
     private javax.swing.JButton btnExit;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblGuests;
     // End of variables declaration//GEN-END:variables
 }
