@@ -88,9 +88,28 @@ public class ReservationService {
             stmt.executeUpdate();
 
             // Update status kamar
-            RoomService.updateRoomStatus(roomId, "occupied");
+            RoomService.updateRoomStatus(roomId, "Occupied");
 
             JOptionPane.showMessageDialog(null, "Check-In berhasil!");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Gagal check-in: " + e.getMessage());
+        }
+    }
+    
+    
+    public static void checkOutReservation(int reservationId, int roomId) {
+        String sql = "UPDATE reservations SET status = 'checked_out' WHERE reservation_id = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, reservationId);
+            stmt.executeUpdate();
+
+            // Update status kamar
+            RoomService.updateRoomStatus(roomId, "Available");
 
         } catch (SQLException e) {
             e.printStackTrace();

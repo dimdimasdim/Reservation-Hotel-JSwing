@@ -157,12 +157,12 @@ public class DashboardFrame extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         menuPanel = new javax.swing.JPanel();
-        btnRoom = new javax.swing.JButton();
-        btnGuest = new javax.swing.JButton();
-        btnReservationRoom1 = new javax.swing.JButton();
-        btnCheckOut = new javax.swing.JButton();
-        btnAdditionalService = new javax.swing.JButton();
-        btnPayment1 = new javax.swing.JButton();
+        btnMenuRoom = new javax.swing.JButton();
+        btnMenuGuest = new javax.swing.JButton();
+        btnMenuReservationRoom = new javax.swing.JButton();
+        btnMenuCheckOut = new javax.swing.JButton();
+        btnMenuPayment = new javax.swing.JButton();
+        btnMenuChckOut = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         tvUserInfo = new javax.swing.JLabel();
@@ -206,6 +206,11 @@ public class DashboardFrame extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         tblCheckIn = new javax.swing.JTable();
         btnStatusCheckIn = new javax.swing.JButton();
+        checkout = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tblCheckOut = new javax.swing.JTable();
+        btnUpdateStatusCheckOut = new javax.swing.JButton();
 
         jMenu1.setText("jMenu1");
 
@@ -215,51 +220,51 @@ public class DashboardFrame extends javax.swing.JFrame {
 
         menuPanel.setBackground(new java.awt.Color(153, 153, 255));
 
-        btnRoom.setBackground(new java.awt.Color(204, 204, 255));
-        btnRoom.setText("Form Kamar");
-        btnRoom.addActionListener(new java.awt.event.ActionListener() {
+        btnMenuRoom.setBackground(new java.awt.Color(204, 204, 255));
+        btnMenuRoom.setText("Form Kamar");
+        btnMenuRoom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRoomActionPerformed(evt);
+                btnMenuRoomActionPerformed(evt);
             }
         });
 
-        btnGuest.setBackground(new java.awt.Color(204, 204, 255));
-        btnGuest.setText("Registrasi Tamu");
-        btnGuest.addActionListener(new java.awt.event.ActionListener() {
+        btnMenuGuest.setBackground(new java.awt.Color(204, 204, 255));
+        btnMenuGuest.setText("Registrasi Tamu");
+        btnMenuGuest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuestActionPerformed(evt);
+                btnMenuGuestActionPerformed(evt);
             }
         });
 
-        btnReservationRoom1.setBackground(new java.awt.Color(204, 204, 255));
-        btnReservationRoom1.setText("Reservasi Kamar");
-        btnReservationRoom1.addActionListener(new java.awt.event.ActionListener() {
+        btnMenuReservationRoom.setBackground(new java.awt.Color(204, 204, 255));
+        btnMenuReservationRoom.setText("Reservasi Kamar");
+        btnMenuReservationRoom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReservationRoom1ActionPerformed(evt);
+                btnMenuReservationRoomActionPerformed(evt);
             }
         });
 
-        btnCheckOut.setBackground(new java.awt.Color(204, 204, 255));
-        btnCheckOut.setText("Check In");
-        btnCheckOut.addActionListener(new java.awt.event.ActionListener() {
+        btnMenuCheckOut.setBackground(new java.awt.Color(204, 204, 255));
+        btnMenuCheckOut.setText("Check In");
+        btnMenuCheckOut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCheckOutActionPerformed(evt);
+                btnMenuCheckOutActionPerformed(evt);
             }
         });
 
-        btnAdditionalService.setBackground(new java.awt.Color(204, 204, 255));
-        btnAdditionalService.setText("Service Tambahan");
-        btnAdditionalService.addActionListener(new java.awt.event.ActionListener() {
+        btnMenuPayment.setBackground(new java.awt.Color(204, 204, 255));
+        btnMenuPayment.setText("Pembayaran");
+        btnMenuPayment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAdditionalServiceActionPerformed(evt);
+                btnMenuPaymentActionPerformed(evt);
             }
         });
 
-        btnPayment1.setBackground(new java.awt.Color(204, 204, 255));
-        btnPayment1.setText("Pembayaran");
-        btnPayment1.addActionListener(new java.awt.event.ActionListener() {
+        btnMenuChckOut.setBackground(new java.awt.Color(204, 204, 255));
+        btnMenuChckOut.setText("Check Out");
+        btnMenuChckOut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPayment1ActionPerformed(evt);
+                btnMenuChckOutActionPerformed(evt);
             }
         });
 
@@ -282,12 +287,12 @@ public class DashboardFrame extends javax.swing.JFrame {
                     .addGroup(menuPanelLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnRoom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnCheckOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnAdditionalService, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnPayment1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnReservationRoom1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnGuest, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(btnMenuRoom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnMenuCheckOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnMenuPayment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnMenuChckOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnMenuReservationRoom, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnMenuGuest, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(menuPanelLayout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addGroup(menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -307,17 +312,17 @@ public class DashboardFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(tvUserInfo)
                 .addGap(44, 44, 44)
-                .addComponent(btnGuest, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnMenuGuest, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnReservationRoom1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnMenuReservationRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnMenuRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnCheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnMenuCheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnPayment1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnMenuChckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
-                .addComponent(btnAdditionalService, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnMenuPayment, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -722,6 +727,65 @@ public class DashboardFrame extends javax.swing.JFrame {
 
         mainPanel.add(checkin, "checkin");
 
+        checkout.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel11.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
+        jLabel11.setText("FORM CHECK OUT");
+
+        tblCheckOut.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "Nama Tamu", "No Kamar", "Check In", "Check Out"
+            }
+        ));
+        jScrollPane4.setViewportView(tblCheckOut);
+
+        btnUpdateStatusCheckOut.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
+        btnUpdateStatusCheckOut.setText("CHECK OUT");
+        btnUpdateStatusCheckOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateStatusCheckOutActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout checkoutLayout = new javax.swing.GroupLayout(checkout);
+        checkout.setLayout(checkoutLayout);
+        checkoutLayout.setHorizontalGroup(
+            checkoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(checkoutLayout.createSequentialGroup()
+                .addGroup(checkoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, checkoutLayout.createSequentialGroup()
+                        .addContainerGap(16, Short.MAX_VALUE)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 675, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(checkoutLayout.createSequentialGroup()
+                        .addGap(235, 235, 235)
+                        .addComponent(jLabel11)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(checkoutLayout.createSequentialGroup()
+                .addGap(269, 269, 269)
+                .addComponent(btnUpdateStatusCheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        checkoutLayout.setVerticalGroup(
+            checkoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(checkoutLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLabel11)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnUpdateStatusCheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(163, Short.MAX_VALUE))
+        );
+
+        mainPanel.add(checkout, "checkout");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -743,11 +807,11 @@ public class DashboardFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRoomActionPerformed
+    private void btnMenuRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuRoomActionPerformed
         loadRoom();
         CardLayout card = (CardLayout)mainPanel.getLayout();
         card.show(mainPanel, "roomPanel");
-    }//GEN-LAST:event_btnRoomActionPerformed
+    }//GEN-LAST:event_btnMenuRoomActionPerformed
 
     private void loadRoom() {
         DefaultTableModel model = (DefaultTableModel) tblRoom.getModel();
@@ -766,36 +830,39 @@ public class DashboardFrame extends javax.swing.JFrame {
         }
     }
     
-    private void btnGuestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuestActionPerformed
+    private void btnMenuGuestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuGuestActionPerformed
         // TODO add your handling code here:
         CardLayout card = (CardLayout)mainPanel.getLayout();
         card.show(mainPanel, "regisPanel");
-    }//GEN-LAST:event_btnGuestActionPerformed
+    }//GEN-LAST:event_btnMenuGuestActionPerformed
 
-    private void btnReservationRoom1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservationRoom1ActionPerformed
+    private void btnMenuReservationRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuReservationRoomActionPerformed
         // TODO add your handling code here:
         initReservationDate();
         loadGuestsToComboBox();
         loadRoomsToComboBox();
-        ReservationService.loadReservationsByStatus(tblReservation, null);
+        ReservationService.loadReservationsByStatus(tblReservation, "booked");
         CardLayout card = (CardLayout)mainPanel.getLayout();
         card.show(mainPanel, "reservePanel");
-    }//GEN-LAST:event_btnReservationRoom1ActionPerformed
+    }//GEN-LAST:event_btnMenuReservationRoomActionPerformed
 
-    private void btnCheckOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckOutActionPerformed
+    private void btnMenuCheckOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuCheckOutActionPerformed
         // TODO add your handling code here:
         ReservationService.loadReservationsByStatus(tblCheckIn, "booked");
         CardLayout card = (CardLayout)mainPanel.getLayout();
         card.show(mainPanel, "checkin");
-    }//GEN-LAST:event_btnCheckOutActionPerformed
+    }//GEN-LAST:event_btnMenuCheckOutActionPerformed
 
-    private void btnAdditionalServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdditionalServiceActionPerformed
+    private void btnMenuPaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPaymentActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnAdditionalServiceActionPerformed
+    }//GEN-LAST:event_btnMenuPaymentActionPerformed
 
-    private void btnPayment1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPayment1ActionPerformed
+    private void btnMenuChckOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuChckOutActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnPayment1ActionPerformed
+        ReservationService.loadReservationsByStatus(tblCheckOut, "checked_in");
+        CardLayout card = (CardLayout)mainPanel.getLayout();
+        card.show(mainPanel, "checkout");
+    }//GEN-LAST:event_btnMenuChckOutActionPerformed
 
     private void tvGuestPhoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tvGuestPhoneActionPerformed
         // TODO add your handling code here:
@@ -916,7 +983,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         if (isReserved) {
             JOptionPane.showMessageDialog(this, "Reservasi berhasil disimpan.");
             RoomService.updateRoomStatus(roomId, "Occupied");
-            ReservationService.loadReservationsByStatus(tblReservation, null);
+            ReservationService.loadReservationsByStatus(tblReservation, "booked");
             loadRoomsToComboBox();
         } else {
             JOptionPane.showMessageDialog(this, "Gagal menyimpan kamar.");
@@ -933,33 +1000,53 @@ public class DashboardFrame extends javax.swing.JFrame {
 
             ReservationService.checkInReservation(reservationId, roomSelected);
             ReservationService.loadReservationsByStatus(tblCheckIn, "booked");
+            JOptionPane.showMessageDialog(null, "Check-In berhasil!");
         } else {
             JOptionPane.showMessageDialog(this, "Pilih data terlebih dahulu.");
         }
     }//GEN-LAST:event_btnStatusCheckInActionPerformed
 
+    private void btnUpdateStatusCheckOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateStatusCheckOutActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = tblCheckOut.getSelectedRow();
+        if (selectedRow >= 0) {
+            int reservationId = (int) tblCheckOut.getValueAt(selectedRow, 0);
+            String roomNumber = (String) tblCheckOut.getValueAt(selectedRow, 2);
+            int roomSelected = RoomService.getRoomIdByRoomNumber(roomNumber);
+
+            ReservationService.checkOutReservation(reservationId, roomSelected);
+            ReservationService.loadReservationsByStatus(tblCheckOut, "checked_in");
+            JOptionPane.showMessageDialog(null, "Check-Out berhasil!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Pilih data terlebih dahulu.");
+        }
+    }//GEN-LAST:event_btnUpdateStatusCheckOutActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdditionalService;
-    private javax.swing.JButton btnCheckOut;
     private javax.swing.JButton btnDeleteRoom;
-    private javax.swing.JButton btnGuest;
-    private javax.swing.JButton btnPayment1;
+    private javax.swing.JButton btnMenuChckOut;
+    private javax.swing.JButton btnMenuCheckOut;
+    private javax.swing.JButton btnMenuGuest;
+    private javax.swing.JButton btnMenuPayment;
+    private javax.swing.JButton btnMenuReservationRoom;
+    private javax.swing.JButton btnMenuRoom;
     private javax.swing.JButton btnReservation;
-    private javax.swing.JButton btnReservationRoom1;
-    private javax.swing.JButton btnRoom;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSaveRoom;
     private javax.swing.JButton btnShowGuests;
     private javax.swing.JButton btnStatusCheckIn;
     private javax.swing.JButton btnUpdate;
+    private javax.swing.JButton btnUpdateStatusCheckOut;
     private javax.swing.JComboBox<Guest> cbGuest;
     private javax.swing.JComboBox<String> cbRoom;
     private javax.swing.JComboBox<Room> cbRooms;
     private javax.swing.JComboBox<String> cbStatusRoom;
     private javax.swing.JPanel checkin;
+    private javax.swing.JPanel checkout;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -973,6 +1060,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JPanel menuPanel;
     private javax.swing.JPanel pickerCheckIn;
@@ -981,6 +1069,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JPanel reservePanel;
     private javax.swing.JPanel roomPanel;
     private javax.swing.JTable tblCheckIn;
+    private javax.swing.JTable tblCheckOut;
     private javax.swing.JTable tblReservation;
     private javax.swing.JTable tblRoom;
     private javax.swing.JLabel titleFormKamar;
