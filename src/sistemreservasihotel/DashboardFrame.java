@@ -4,6 +4,7 @@
  */
 package sistemreservasihotel;
 
+import com.github.lgooddatepicker.components.DatePicker;
 import java.awt.CardLayout;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
@@ -16,9 +17,14 @@ import java.util.Arrays;
 import java.util.List;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import sistemreservasihotel.helper.service.GuestService;
 import sistemreservasihotel.helper.service.RoomService;
+import sistemreservasihotel.model.Guest;
 import sistemreservasihotel.model.Room;
 import sistemreservasihotel.model.User;
+import java.sql.Date;
+import sistemreservasihotel.helper.service.ReservationService;
+import sistemreservasihotel.model.Reservation;
 
 /**
  *
@@ -28,6 +34,8 @@ public class DashboardFrame extends javax.swing.JFrame {
     
     private final User userLoggedIn;
     private int roomId = -1;
+    DatePicker checkInDate = new DatePicker();
+    DatePicker checkOutDate = new DatePicker();
 
     /**
      * Creates new form DashboardFrame
@@ -58,6 +66,13 @@ public class DashboardFrame extends javax.swing.JFrame {
                     break;
             }
         });
+    }
+    
+    private void initReservationDate(){
+        pickerCheckIn.setLayout(new java.awt.BorderLayout());
+        pickerCheckIn.add(checkInDate);
+        pickerCheckOut.setLayout(new java.awt.BorderLayout());
+        pickerCheckOut.add(checkOutDate);
     }
     
     private void initUserData() {
@@ -161,7 +176,18 @@ public class DashboardFrame extends javax.swing.JFrame {
         btnShowGuests = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
         reservePanel = new javax.swing.JPanel();
+        titleReservation = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        cbRooms = new javax.swing.JComboBox<>();
+        pickerCheckIn = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        pickerCheckOut = new javax.swing.JPanel();
+        btnReservation = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblReservation = new javax.swing.JTable();
+        cbGuest = new javax.swing.JComboBox<>();
         roomPanel = new javax.swing.JPanel();
         titleFormKamar = new javax.swing.JLabel();
         tvRoomNumber = new javax.swing.JTextField();
@@ -385,30 +411,128 @@ public class DashboardFrame extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(regisPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, regisPanelLayout.createSequentialGroup()
-                    .addContainerGap(269, Short.MAX_VALUE)
+                    .addContainerGap(520, Short.MAX_VALUE)
                     .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(157, 157, 157)))
         );
 
         mainPanel.add(regisPanel, "regisPanel");
 
-        jLabel2.setText("2");
+        reservePanel.setBackground(new java.awt.Color(255, 255, 255));
+
+        titleReservation.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        titleReservation.setText("Form Reservasi");
+
+        jLabel2.setText("Nama Tamu");
+
+        jLabel7.setText("Pilih Kamar");
+
+        javax.swing.GroupLayout pickerCheckInLayout = new javax.swing.GroupLayout(pickerCheckIn);
+        pickerCheckIn.setLayout(pickerCheckInLayout);
+        pickerCheckInLayout.setHorizontalGroup(
+            pickerCheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 386, Short.MAX_VALUE)
+        );
+        pickerCheckInLayout.setVerticalGroup(
+            pickerCheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 32, Short.MAX_VALUE)
+        );
+
+        jLabel8.setText("Check In");
+
+        jLabel9.setText("Check Out");
+
+        javax.swing.GroupLayout pickerCheckOutLayout = new javax.swing.GroupLayout(pickerCheckOut);
+        pickerCheckOut.setLayout(pickerCheckOutLayout);
+        pickerCheckOutLayout.setHorizontalGroup(
+            pickerCheckOutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 386, Short.MAX_VALUE)
+        );
+        pickerCheckOutLayout.setVerticalGroup(
+            pickerCheckOutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 32, Short.MAX_VALUE)
+        );
+
+        btnReservation.setText("Reservasi");
+        btnReservation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReservationActionPerformed(evt);
+            }
+        });
+
+        tblReservation.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "Nama Tamu", "Nomor Kamar", "Check In", "Check Out", "Status"
+            }
+        ));
+        tblReservation.setBounds(new java.awt.Rectangle(0, 0, 400, 80));
+        jScrollPane2.setViewportView(tblReservation);
 
         javax.swing.GroupLayout reservePanelLayout = new javax.swing.GroupLayout(reservePanel);
         reservePanel.setLayout(reservePanelLayout);
         reservePanelLayout.setHorizontalGroup(
             reservePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(reservePanelLayout.createSequentialGroup()
-                .addGap(291, 291, 291)
-                .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(reservePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(reservePanelLayout.createSequentialGroup()
+                        .addGap(267, 267, 267)
+                        .addComponent(titleReservation))
+                    .addGroup(reservePanelLayout.createSequentialGroup()
+                        .addGap(54, 54, 54)
+                        .addGroup(reservePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel2))
+                        .addGap(50, 50, 50)
+                        .addGroup(reservePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(pickerCheckOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(pickerCheckIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cbRooms, 0, 386, Short.MAX_VALUE)
+                            .addComponent(cbGuest, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(reservePanelLayout.createSequentialGroup()
+                        .addGap(136, 136, 136)
+                        .addComponent(btnReservation, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(reservePanelLayout.createSequentialGroup()
+                        .addGap(43, 43, 43)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 587, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
         reservePanelLayout.setVerticalGroup(
             reservePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(reservePanelLayout.createSequentialGroup()
-                .addGap(239, 239, 239)
-                .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(27, 27, 27)
+                .addComponent(titleReservation)
+                .addGroup(reservePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(reservePanelLayout.createSequentialGroup()
+                        .addGap(55, 55, 55)
+                        .addComponent(jLabel2))
+                    .addGroup(reservePanelLayout.createSequentialGroup()
+                        .addGap(52, 52, 52)
+                        .addComponent(cbGuest, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(reservePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbRooms, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(reservePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pickerCheckIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(reservePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pickerCheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25)
+                .addComponent(btnReservation, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(105, Short.MAX_VALUE))
         );
 
         mainPanel.add(reservePanel, "reservePanel");
@@ -542,8 +666,7 @@ public class DashboardFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(menuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -579,7 +702,6 @@ public class DashboardFrame extends javax.swing.JFrame {
             });
         }
     }
-
     
     private void btnGuestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuestActionPerformed
         // TODO add your handling code here:
@@ -589,6 +711,9 @@ public class DashboardFrame extends javax.swing.JFrame {
 
     private void btnReservationRoom1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservationRoom1ActionPerformed
         // TODO add your handling code here:
+        initReservationDate();
+        loadGuestsToComboBox();
+        loadRoomsToComboBox();
         CardLayout card = (CardLayout)mainPanel.getLayout();
         card.show(mainPanel, "reservePanel");
     }//GEN-LAST:event_btnReservationRoom1ActionPerformed
@@ -705,6 +830,32 @@ public class DashboardFrame extends javax.swing.JFrame {
     }
     }//GEN-LAST:event_btnDeleteRoomActionPerformed
 
+    private void btnReservationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservationActionPerformed
+        // TODO add your handling code here:
+        
+        if (checkInDate.getDate() == null || checkOutDate.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Mohon pilih tanggal check-in dan check-out!");
+            return;
+        }
+        Guest selectedGuest = (Guest) cbGuest.getSelectedItem();
+        int guestId = selectedGuest.getGuestId();
+        Room selectedRoom = (Room) cbRooms.getSelectedItem();
+        int roomId = selectedRoom.getRoomId();
+        Date sqlCheckInDate = java.sql.Date.valueOf(checkInDate.getDate());
+        Date sqlCheckOutDate = java.sql.Date.valueOf(checkOutDate.getDate());
+        boolean isReserved = ReservationService.saveReservation(new Reservation(
+        guestId, roomId,sqlCheckInDate,sqlCheckOutDate, "booked"
+        ));
+        if (isReserved) {
+            JOptionPane.showMessageDialog(this, "Reservasi berhasil disimpan.");
+            RoomService.updateRoomStatus(roomId, "Occupied");
+            ReservationService.loadReservations(tblReservation);
+            loadRoomsToComboBox();
+        } else {
+            JOptionPane.showMessageDialog(this, "Gagal menyimpan kamar.");
+        }
+    }//GEN-LAST:event_btnReservationActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdditionalService;
@@ -712,13 +863,16 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnDeleteRoom;
     private javax.swing.JButton btnGuest;
     private javax.swing.JButton btnPayment1;
+    private javax.swing.JButton btnReservation;
     private javax.swing.JButton btnReservationRoom1;
     private javax.swing.JButton btnRoom;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSaveRoom;
     private javax.swing.JButton btnShowGuests;
     private javax.swing.JButton btnUpdate;
+    private javax.swing.JComboBox<Guest> cbGuest;
     private javax.swing.JComboBox<String> cbRoom;
+    private javax.swing.JComboBox<Room> cbRooms;
     private javax.swing.JComboBox<String> cbStatusRoom;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -726,16 +880,24 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JPanel menuPanel;
+    private javax.swing.JPanel pickerCheckIn;
+    private javax.swing.JPanel pickerCheckOut;
     private javax.swing.JPanel regisPanel;
     private javax.swing.JPanel reservePanel;
     private javax.swing.JPanel roomPanel;
+    private javax.swing.JTable tblReservation;
     private javax.swing.JTable tblRoom;
     private javax.swing.JLabel titleFormKamar;
+    private javax.swing.JLabel titleReservation;
     private javax.swing.JTextField tvGuestAddress;
     private javax.swing.JTextField tvGuestEmail;
     private javax.swing.JTextField tvGuestName;
@@ -745,6 +907,9 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JLabel tvUserInfo;
     // End of variables declaration//GEN-END:variables
 
+
+    
+    
 private void saveGuest() {
     String name = tvGuestName.getText().trim();
     String address = tvGuestAddress.getText().trim();
@@ -775,6 +940,29 @@ private void saveGuest() {
             JOptionPane.showMessageDialog(this, "Gagal menyimpan data tamu.");
         }
     }
+
+private void loadGuestsToComboBox() {
+    List<Guest> guests = GuestService.getAllGuests();
+    if(cbGuest.getItemCount() != 0) {
+        cbGuest.removeAllItems();
+    }
+
+    for (Guest g : guests) {
+        cbGuest.addItem(g); // akan tampil nama, karena kita override toString
+    }
+}
+
+private void loadRoomsToComboBox() {
+    List<Room> rooms = RoomService.getAvailableRooms();
+    if(cbRooms.getItemCount() != 0) {
+        cbRooms.removeAllItems();
+    }
+    
+
+    for (Room r : rooms) {
+        cbRooms.addItem(r); // akan tampil nama, karena kita override toString
+    }
+}
 
 private void resetField(List<JTextField> fields) {
     for (JTextField field : fields) {

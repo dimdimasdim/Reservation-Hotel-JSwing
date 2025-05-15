@@ -98,4 +98,48 @@ public class RoomService {
             return false;
         }
     }
+    
+    public static void updateRoomStatus(int roomId, String status) {
+        String sql = "UPDATE rooms SET status = ? WHERE room_id = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, status);
+            stmt.setInt(2, roomId);
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public static List<Room> getAvailableRooms() {
+        List<Room> rooms = new ArrayList<>();
+
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            String sql = "SELECT * FROM reservation_hotel.rooms WHERE status = 'available'";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Room room = new Room(
+                    rs.getInt("room_id"),
+                    rs.getString("room_number"),
+                    rs.getString("type"),
+                    rs.getDouble("price_per_night"),
+                    rs.getString("status")
+                );
+                rooms.add(room);
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return rooms;
+    }
+    
 }
