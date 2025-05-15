@@ -10,9 +10,6 @@ import sistemreservasihotel.helper.DatabaseConnection;
 import java.sql.SQLException;
 import sistemreservasihotel.model.Reservation;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
-import java.sql.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -42,28 +39,37 @@ public class ReservationService {
         }
     }
     
-    public static void loadReservations(JTable table) {
+    public static void loadReservationsByStatus(JTable table, String status) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         model.setRowCount(0);
-        String sql = "SELECT r.reservation_id, g.name AS guest_name, rm.room_number, " +
-                     "r.check_in_date, r.check_out_date, r.status " +
-                     "FROM reservations r " +
-                     "JOIN guests g ON r.guest_id = g.guest_id " +
-                     "JOIN rooms rm ON r.room_id = rm.room_id";
+
+        String baseQuery = "SELECT r.reservation_id, g.name, rm.room_number, r.check_in_date, r.check_out_date, r.status " +
+                           "FROM reservations r " +
+                           "JOIN guests g ON r.guest_id = g.guest_id " +
+                           "JOIN rooms rm ON r.room_id = rm.room_id";
+
+        if (status != null && !status.trim().isEmpty()) {
+            baseQuery += " WHERE r.status = ?";
+        }
 
         try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
+             PreparedStatement stmt = conn.prepareStatement(baseQuery)) {
 
+            // Isi parameter jika ada status
+            if (status != null && !status.trim().isEmpty()) {
+                stmt.setString(1, status);
+            }
+
+            ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                int id = rs.getInt("reservation_id");
-                String guestName = rs.getString("guest_name");
-                String roomNumber = rs.getString("room_number");
-                Date checkIn = rs.getDate("check_in_date");
-                Date checkOut = rs.getDate("check_out_date");
-                String status = rs.getString("status");
-
-                model.addRow(new Object[]{id, guestName, roomNumber, checkIn, checkOut, status});
+                model.addRow(new Object[]{
+                    rs.getInt("reservation_id"),
+                    rs.getString("name"),
+                    rs.getString("room_number"),
+                    rs.getDate("check_in_date"),
+                    rs.getDate("check_out_date"),
+                    rs.getString("status")
+                });
             }
 
         } catch (SQLException e) {
@@ -71,5 +77,26 @@ public class ReservationService {
             JOptionPane.showMessageDialog(null, "Gagal memuat data reservasi: " + e.getMessage());
         }
     }
+    
+    public static void checkInReservation(int reservationId, int roomId) {
+        String sql = "UPDATE reservations SET status = 'checked_in' WHERE reservation_id = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, reservationId);
+            stmt.executeUpdate();
+
+            // Update status kamar
+            RoomService.updateRoomStatus(roomId, "occupied");
+
+            JOptionPane.showMessageDialog(null, "Check-In berhasil!");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Gagal check-in: " + e.getMessage());
+        }
+    }
+
     
 }

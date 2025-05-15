@@ -142,4 +142,21 @@ public class RoomService {
         return rooms;
     }
     
+    public static int getRoomIdByRoomNumber(String roomNumber) {
+        String sql = "SELECT room_id FROM rooms WHERE room_number = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, roomNumber);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("room_id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    
 }

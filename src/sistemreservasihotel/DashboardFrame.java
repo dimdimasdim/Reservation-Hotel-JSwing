@@ -201,6 +201,11 @@ public class DashboardFrame extends javax.swing.JFrame {
         btnSaveRoom = new javax.swing.JButton();
         btnDeleteRoom = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
+        checkin = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblCheckIn = new javax.swing.JTable();
+        btnStatusCheckIn = new javax.swing.JButton();
 
         jMenu1.setText("jMenu1");
 
@@ -235,7 +240,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         });
 
         btnCheckOut.setBackground(new java.awt.Color(204, 204, 255));
-        btnCheckOut.setText("Check OUt");
+        btnCheckOut.setText("Check In");
         btnCheckOut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCheckOutActionPerformed(evt);
@@ -391,7 +396,7 @@ public class DashboardFrame extends javax.swing.JFrame {
                 .addGroup(regisPanelLayout.createSequentialGroup()
                     .addGap(216, 216, 216)
                     .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(261, Short.MAX_VALUE)))
+                    .addContainerGap(279, Short.MAX_VALUE)))
         );
         regisPanelLayout.setVerticalGroup(
             regisPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -502,7 +507,7 @@ public class DashboardFrame extends javax.swing.JFrame {
                     .addGroup(reservePanelLayout.createSequentialGroup()
                         .addGap(43, 43, 43)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 587, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
         reservePanelLayout.setVerticalGroup(
             reservePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -604,12 +609,9 @@ public class DashboardFrame extends javax.swing.JFrame {
         roomPanelLayout.setHorizontalGroup(
             roomPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roomPanelLayout.createSequentialGroup()
+                .addContainerGap(118, Short.MAX_VALUE)
                 .addGroup(roomPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(roomPanelLayout.createSequentialGroup()
-                        .addGap(346, 346, 346)
-                        .addComponent(titleFormKamar))
-                    .addGroup(roomPanelLayout.createSequentialGroup()
-                        .addGap(112, 112, 112)
                         .addGroup(roomPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(roomPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel6)
@@ -627,15 +629,19 @@ public class DashboardFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnDeleteRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(28, 28, 28)
-                                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roomPanelLayout.createSequentialGroup()
+                        .addGap(177, 177, 177)
+                        .addComponent(titleFormKamar)
+                        .addGap(259, 259, 259))))
         );
         roomPanelLayout.setVerticalGroup(
             roomPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roomPanelLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addGap(15, 15, 15)
                 .addComponent(titleFormKamar)
-                .addGap(34, 34, 34)
+                .addGap(35, 35, 35)
                 .addComponent(tvRoomNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(roomPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -658,6 +664,63 @@ public class DashboardFrame extends javax.swing.JFrame {
         );
 
         mainPanel.add(roomPanel, "roomPanel");
+
+        checkin.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel10.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
+        jLabel10.setText("Form Check In");
+
+        tblCheckIn.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "Nama Tamu", "No Kamar", "Check In", "Check Out"
+            }
+        ));
+        jScrollPane3.setViewportView(tblCheckIn);
+
+        btnStatusCheckIn.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
+        btnStatusCheckIn.setText("CHECK IN");
+        btnStatusCheckIn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnStatusCheckInActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout checkinLayout = new javax.swing.GroupLayout(checkin);
+        checkin.setLayout(checkinLayout);
+        checkinLayout.setHorizontalGroup(
+            checkinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(checkinLayout.createSequentialGroup()
+                .addGroup(checkinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(checkinLayout.createSequentialGroup()
+                        .addGap(236, 236, 236)
+                        .addComponent(jLabel10))
+                    .addGroup(checkinLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 675, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(checkinLayout.createSequentialGroup()
+                        .addGap(175, 175, 175)
+                        .addComponent(btnStatusCheckIn, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(16, Short.MAX_VALUE))
+        );
+        checkinLayout.setVerticalGroup(
+            checkinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(checkinLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jLabel10)
+                .addGap(43, 43, 43)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnStatusCheckIn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(145, Short.MAX_VALUE))
+        );
+
+        mainPanel.add(checkin, "checkin");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -714,12 +777,16 @@ public class DashboardFrame extends javax.swing.JFrame {
         initReservationDate();
         loadGuestsToComboBox();
         loadRoomsToComboBox();
+        ReservationService.loadReservationsByStatus(tblReservation, null);
         CardLayout card = (CardLayout)mainPanel.getLayout();
         card.show(mainPanel, "reservePanel");
     }//GEN-LAST:event_btnReservationRoom1ActionPerformed
 
     private void btnCheckOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckOutActionPerformed
         // TODO add your handling code here:
+        ReservationService.loadReservationsByStatus(tblCheckIn, "booked");
+        CardLayout card = (CardLayout)mainPanel.getLayout();
+        card.show(mainPanel, "checkin");
     }//GEN-LAST:event_btnCheckOutActionPerformed
 
     private void btnAdditionalServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdditionalServiceActionPerformed
@@ -849,12 +916,27 @@ public class DashboardFrame extends javax.swing.JFrame {
         if (isReserved) {
             JOptionPane.showMessageDialog(this, "Reservasi berhasil disimpan.");
             RoomService.updateRoomStatus(roomId, "Occupied");
-            ReservationService.loadReservations(tblReservation);
+            ReservationService.loadReservationsByStatus(tblReservation, null);
             loadRoomsToComboBox();
         } else {
             JOptionPane.showMessageDialog(this, "Gagal menyimpan kamar.");
         }
     }//GEN-LAST:event_btnReservationActionPerformed
+
+    private void btnStatusCheckInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStatusCheckInActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = tblCheckIn.getSelectedRow();
+        if (selectedRow >= 0) {
+            int reservationId = (int) tblCheckIn.getValueAt(selectedRow, 0);
+            String roomNumber = (String) tblCheckIn.getValueAt(selectedRow, 2);
+            int roomSelected = RoomService.getRoomIdByRoomNumber(roomNumber);
+
+            ReservationService.checkInReservation(reservationId, roomSelected);
+            ReservationService.loadReservationsByStatus(tblCheckIn, "booked");
+        } else {
+            JOptionPane.showMessageDialog(this, "Pilih data terlebih dahulu.");
+        }
+    }//GEN-LAST:event_btnStatusCheckInActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -869,12 +951,15 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSaveRoom;
     private javax.swing.JButton btnShowGuests;
+    private javax.swing.JButton btnStatusCheckIn;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<Guest> cbGuest;
     private javax.swing.JComboBox<String> cbRoom;
     private javax.swing.JComboBox<Room> cbRooms;
     private javax.swing.JComboBox<String> cbStatusRoom;
+    private javax.swing.JPanel checkin;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -887,6 +972,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JPanel menuPanel;
     private javax.swing.JPanel pickerCheckIn;
@@ -894,6 +980,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JPanel regisPanel;
     private javax.swing.JPanel reservePanel;
     private javax.swing.JPanel roomPanel;
+    private javax.swing.JTable tblCheckIn;
     private javax.swing.JTable tblReservation;
     private javax.swing.JTable tblRoom;
     private javax.swing.JLabel titleFormKamar;
