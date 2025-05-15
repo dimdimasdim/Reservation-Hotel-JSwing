@@ -4,7 +4,7 @@
  */
 package sistemreservasihotel.model;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  *
@@ -26,6 +26,15 @@ public class Reservation {
         this.status = status;
     }
     
+    public Reservation(int reservationId,int guestId, int roomId, Date checkInDate, Date checkOutDate, String status) {
+        this.reservationId = reservationId;
+        this.guestId = guestId;
+        this.roomId = roomId;
+        this.checkInDate = checkInDate;
+        this.checkOutDate = checkOutDate;
+        this.status = status;
+    }
+
     public int getReservationId() { return reservationId; }
     public void setReservationId(int reservationId) { this.reservationId = reservationId; }
 
