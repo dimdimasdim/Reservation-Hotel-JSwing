@@ -10,9 +10,11 @@ import sistemreservasihotel.helper.DatabaseConnection;
 import java.sql.SQLException;
 import sistemreservasihotel.model.Reservation;
 import java.sql.ResultSet;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import sistemreservasihotel.model.ReservationOption;
 
 /**
  *
@@ -116,6 +118,64 @@ public class ReservationService {
             JOptionPane.showMessageDialog(null, "Gagal check-in: " + e.getMessage());
         }
     }
+    
+    public static void loadReservationsToComboBox(JComboBox<ReservationOption> comboBox) {
+        comboBox.removeAllItems();
+        String sql = "SELECT r.reservation_id, g.name " +
+                 "FROM reservations r " +
+                 "JOIN guests g ON r.guest_id = g.guest_id " +
+                 "LEFT JOIN payments p ON r.reservation_id = p.reservation_id " +
+                 "WHERE r.status = 'checked_out' AND p.payment_id IS NULL";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                int id = rs.getInt("reservation_id");
+                String name = rs.getString("name");
+
+                ReservationOption option = new ReservationOption(id, name);
+                comboBox.addItem(option);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Gagal memuat data reservasi.");
+        }
+    }
+    
+    
+   public static double calculateTotalPayment(int reservationId) {
+        String sql = "SELECT DATEDIFF(r.check_out_date, r.check_in_date) AS duration, rm.price_per_night " +
+                     "FROM reservations r " +
+                     "JOIN rooms rm ON r.room_id = rm.room_id " +
+                     "WHERE r.reservation_id = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, reservationId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                int days = rs.getInt("duration");
+                double pricePerNight = rs.getDouble("price_per_night");
+
+                // Minimal menginap 1 hari (misal tanggal sama)
+                if (days <= 0) days = 1;
+
+                return pricePerNight * days;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return 0.0;
+    }
+
+
 
     
 }

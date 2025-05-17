@@ -8,6 +8,7 @@ import com.github.lgooddatepicker.components.DatePicker;
 import java.awt.CardLayout;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.event.ItemEvent;
 import javax.swing.JOptionPane;
 import java.sql.Connection;
 import sistemreservasihotel.dialog.GuestsDataMasterDialog;
@@ -25,6 +26,8 @@ import sistemreservasihotel.model.User;
 import java.sql.Date;
 import sistemreservasihotel.helper.service.ReservationService;
 import sistemreservasihotel.model.Reservation;
+import sistemreservasihotel.model.ReservationOption;
+import sistemreservasihotel.utils.CurrencyUtil;
 
 /**
  *
@@ -211,6 +214,20 @@ public class DashboardFrame extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         tblCheckOut = new javax.swing.JTable();
         btnUpdateStatusCheckOut = new javax.swing.JButton();
+        payment = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        cbReservation = new javax.swing.JComboBox<>();
+        jLabel14 = new javax.swing.JLabel();
+        tfGrandTotal = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        cbPaymentMethod = new javax.swing.JComboBox<>();
+        jLabel16 = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tfCatatan = new javax.swing.JTextArea();
+        jButton1 = new javax.swing.JButton();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        tblPayment = new javax.swing.JTable();
 
         jMenu1.setText("jMenu1");
 
@@ -401,7 +418,7 @@ public class DashboardFrame extends javax.swing.JFrame {
                 .addGroup(regisPanelLayout.createSequentialGroup()
                     .addGap(216, 216, 216)
                     .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(279, Short.MAX_VALUE)))
+                    .addContainerGap(320, Short.MAX_VALUE)))
         );
         regisPanelLayout.setVerticalGroup(
             regisPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -512,7 +529,7 @@ public class DashboardFrame extends javax.swing.JFrame {
                     .addGroup(reservePanelLayout.createSequentialGroup()
                         .addGap(43, 43, 43)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 587, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addContainerGap(108, Short.MAX_VALUE))
         );
         reservePanelLayout.setVerticalGroup(
             reservePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -614,7 +631,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         roomPanelLayout.setHorizontalGroup(
             roomPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roomPanelLayout.createSequentialGroup()
-                .addContainerGap(118, Short.MAX_VALUE)
+                .addContainerGap(158, Short.MAX_VALUE)
                 .addGroup(roomPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(roomPanelLayout.createSequentialGroup()
                         .addGroup(roomPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -706,23 +723,23 @@ public class DashboardFrame extends javax.swing.JFrame {
                         .addGap(236, 236, 236)
                         .addComponent(jLabel10))
                     .addGroup(checkinLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 675, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(51, 51, 51)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 572, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(checkinLayout.createSequentialGroup()
-                        .addGap(175, 175, 175)
+                        .addGap(199, 199, 199)
                         .addComponent(btnStatusCheckIn, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(115, Short.MAX_VALUE))
         );
         checkinLayout.setVerticalGroup(
             checkinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(checkinLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(jLabel10)
-                .addGap(43, 43, 43)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(btnStatusCheckIn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(145, Short.MAX_VALUE))
+                .addContainerGap(232, Short.MAX_VALUE))
         );
 
         mainPanel.add(checkin, "checkin");
@@ -759,18 +776,16 @@ public class DashboardFrame extends javax.swing.JFrame {
             checkoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(checkoutLayout.createSequentialGroup()
                 .addGroup(checkoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, checkoutLayout.createSequentialGroup()
-                        .addContainerGap(16, Short.MAX_VALUE)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 675, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(checkoutLayout.createSequentialGroup()
                         .addGap(235, 235, 235)
-                        .addComponent(jLabel11)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(checkoutLayout.createSequentialGroup()
-                .addGap(269, 269, 269)
-                .addComponent(btnUpdateStatusCheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel11))
+                    .addGroup(checkoutLayout.createSequentialGroup()
+                        .addGap(56, 56, 56)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 582, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(checkoutLayout.createSequentialGroup()
+                        .addGap(267, 267, 267)
+                        .addComponent(btnUpdateStatusCheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(100, Short.MAX_VALUE))
         );
         checkoutLayout.setVerticalGroup(
             checkoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -778,13 +793,119 @@ public class DashboardFrame extends javax.swing.JFrame {
                 .addGap(22, 22, 22)
                 .addComponent(jLabel11)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnUpdateStatusCheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(163, Short.MAX_VALUE))
+                .addContainerGap(236, Short.MAX_VALUE))
         );
 
         mainPanel.add(checkout, "checkout");
+
+        payment.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel12.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
+        jLabel12.setText("Form Pembayaran");
+
+        jLabel13.setText("Reservasi Kamar");
+
+        cbReservation.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbReservationItemStateChanged(evt);
+            }
+        });
+        cbReservation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbReservationActionPerformed(evt);
+            }
+        });
+
+        jLabel14.setText("Total Tagihan");
+
+        tfGrandTotal.setText("Rp 0");
+
+        jLabel15.setText("Metode Pembayaran");
+
+        cbPaymentMethod.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cash", "Cradit Card", "Debit Card", "Qris" }));
+
+        jLabel16.setText("Catatan");
+
+        tfCatatan.setColumns(20);
+        tfCatatan.setRows(5);
+        jScrollPane5.setViewportView(tfCatatan);
+
+        jButton1.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        jButton1.setText("Bayar");
+
+        tblPayment.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "No", "Payment ID", "Reservation ID", "Nama Tamu", "Nomor Kamar", "Tanggal Bayar", "Total Tagihan", "Metode Pembayaran", "Catatan"
+            }
+        ));
+        jScrollPane6.setViewportView(tblPayment);
+
+        javax.swing.GroupLayout paymentLayout = new javax.swing.GroupLayout(payment);
+        payment.setLayout(paymentLayout);
+        paymentLayout.setHorizontalGroup(
+            paymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(paymentLayout.createSequentialGroup()
+                .addGroup(paymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(paymentLayout.createSequentialGroup()
+                        .addGap(76, 76, 76)
+                        .addGroup(paymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(paymentLayout.createSequentialGroup()
+                                .addGroup(paymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel13)
+                                    .addComponent(jLabel14)
+                                    .addComponent(jLabel15)
+                                    .addComponent(jLabel16))
+                                .addGap(28, 28, 28)
+                                .addGroup(paymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel12)
+                                    .addComponent(cbReservation, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(tfGrandTotal)
+                                    .addComponent(cbPaymentMethod, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)))))
+                    .addGroup(paymentLayout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 670, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(30, Short.MAX_VALUE))
+        );
+        paymentLayout.setVerticalGroup(
+            paymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(paymentLayout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addComponent(jLabel12)
+                .addGap(18, 18, 18)
+                .addGroup(paymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(cbReservation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(paymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfGrandTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(paymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbPaymentMethod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(paymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16))
+                .addGap(44, 44, 44)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(66, Short.MAX_VALUE))
+        );
+
+        mainPanel.add(payment, "payment");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -855,6 +976,9 @@ public class DashboardFrame extends javax.swing.JFrame {
 
     private void btnMenuPaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPaymentActionPerformed
         // TODO add your handling code here:
+        ReservationService.loadReservationsToComboBox(cbReservation);
+        CardLayout card = (CardLayout)mainPanel.getLayout();
+        card.show(mainPanel, "payment");
     }//GEN-LAST:event_btnMenuPaymentActionPerformed
 
     private void btnMenuChckOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuChckOutActionPerformed
@@ -1022,6 +1146,21 @@ public class DashboardFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnUpdateStatusCheckOutActionPerformed
 
+    private void cbReservationItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbReservationItemStateChanged
+        // TODO add your handling code here:
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            ReservationOption selected = (ReservationOption) cbReservation.getSelectedItem();
+            if (selected != null) {
+                double total = ReservationService.calculateTotalPayment(selected.getReservationId());
+                tfGrandTotal.setText(CurrencyUtil.formatRupiah(total));
+            }
+        }
+    }//GEN-LAST:event_cbReservationItemStateChanged
+
+    private void cbReservationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbReservationActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbReservationActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDeleteRoom;
@@ -1039,14 +1178,22 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnUpdate;
     private javax.swing.JButton btnUpdateStatusCheckOut;
     private javax.swing.JComboBox<Guest> cbGuest;
+    private javax.swing.JComboBox<String> cbPaymentMethod;
+    private javax.swing.JComboBox<ReservationOption> cbReservation;
     private javax.swing.JComboBox<String> cbRoom;
     private javax.swing.JComboBox<Room> cbRooms;
     private javax.swing.JComboBox<String> cbStatusRoom;
     private javax.swing.JPanel checkin;
     private javax.swing.JPanel checkout;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1061,8 +1208,11 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JPanel menuPanel;
+    private javax.swing.JPanel payment;
     private javax.swing.JPanel pickerCheckIn;
     private javax.swing.JPanel pickerCheckOut;
     private javax.swing.JPanel regisPanel;
@@ -1070,8 +1220,11 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JPanel roomPanel;
     private javax.swing.JTable tblCheckIn;
     private javax.swing.JTable tblCheckOut;
+    private javax.swing.JTable tblPayment;
     private javax.swing.JTable tblReservation;
     private javax.swing.JTable tblRoom;
+    private javax.swing.JTextArea tfCatatan;
+    private javax.swing.JTextField tfGrandTotal;
     private javax.swing.JLabel titleFormKamar;
     private javax.swing.JLabel titleReservation;
     private javax.swing.JTextField tvGuestAddress;
