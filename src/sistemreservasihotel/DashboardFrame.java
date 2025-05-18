@@ -24,6 +24,7 @@ import sistemreservasihotel.model.Guest;
 import sistemreservasihotel.model.Room;
 import sistemreservasihotel.model.User;
 import java.sql.Date;
+import sistemreservasihotel.helper.service.PaymentService;
 import sistemreservasihotel.helper.service.ReservationService;
 import sistemreservasihotel.model.Reservation;
 import sistemreservasihotel.model.ReservationOption;
@@ -225,7 +226,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
         tfCatatan = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
+        btnPayNow = new javax.swing.JButton();
         jScrollPane6 = new javax.swing.JScrollPane();
         tblPayment = new javax.swing.JTable();
 
@@ -833,8 +834,13 @@ public class DashboardFrame extends javax.swing.JFrame {
         tfCatatan.setRows(5);
         jScrollPane5.setViewportView(tfCatatan);
 
-        jButton1.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
-        jButton1.setText("Bayar");
+        btnPayNow.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        btnPayNow.setText("Bayar");
+        btnPayNow.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPayNowActionPerformed(evt);
+            }
+        });
 
         tblPayment.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -858,7 +864,7 @@ public class DashboardFrame extends javax.swing.JFrame {
                     .addGroup(paymentLayout.createSequentialGroup()
                         .addGap(76, 76, 76)
                         .addGroup(paymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnPayNow, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(paymentLayout.createSequentialGroup()
                                 .addGroup(paymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel13)
@@ -899,7 +905,7 @@ public class DashboardFrame extends javax.swing.JFrame {
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel16))
                 .addGap(44, 44, 44)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnPayNow, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(66, Short.MAX_VALUE))
@@ -977,6 +983,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     private void btnMenuPaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPaymentActionPerformed
         // TODO add your handling code here:
         ReservationService.loadReservationsToComboBox(cbReservation);
+        PaymentService.loadPayments(tblPayment);
         CardLayout card = (CardLayout)mainPanel.getLayout();
         card.show(mainPanel, "payment");
     }//GEN-LAST:event_btnMenuPaymentActionPerformed
@@ -1161,6 +1168,32 @@ public class DashboardFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbReservationActionPerformed
 
+    private void btnPayNowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPayNowActionPerformed
+        // TODO add your handling code here:
+        ReservationOption selected = (ReservationOption) cbReservation.getSelectedItem();
+        String method = (String) cbPaymentMethod.getSelectedItem(); // ComboBox metode bayar
+        String notes = tfCatatan.getText(); // TextArea catatan
+
+        if (selected != null) {
+            int reservationId = selected.getReservationId();
+
+            try {
+                String grandTotalStr = tfGrandTotal.getText().replace("Rp", "").replace(",00", "").replace(".", "").trim();
+                double totalAmount = Double.parseDouble(grandTotalStr);
+
+                PaymentService.savePayment(reservationId, totalAmount, method, notes);
+                PaymentService.loadPayments(tblPayment);
+                resetFormPembayaran();
+
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Total tagihan tidak valid.");
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Silakan pilih reservasi terlebih dahulu.");
+        }
+    }//GEN-LAST:event_btnPayNowActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDeleteRoom;
@@ -1170,6 +1203,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnMenuPayment;
     private javax.swing.JButton btnMenuReservationRoom;
     private javax.swing.JButton btnMenuRoom;
+    private javax.swing.JButton btnPayNow;
     private javax.swing.JButton btnReservation;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSaveRoom;
@@ -1185,7 +1219,6 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbStatusRoom;
     private javax.swing.JPanel checkin;
     private javax.swing.JPanel checkout;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1298,6 +1331,15 @@ private void resetField(List<JTextField> fields) {
         field.setText("");
     }
 }
+
+private void resetFormPembayaran() {
+    cbReservation.setSelectedIndex(0);
+    cbPaymentMethod.setSelectedIndex(0);
+    tfGrandTotal.setText("");
+    tfCatatan.setText("");
+    ReservationService.loadReservationsToComboBox(cbReservation);
+}
+
 
 
 }
