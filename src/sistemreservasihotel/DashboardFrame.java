@@ -83,6 +83,10 @@ public class DashboardFrame extends javax.swing.JFrame {
     
     private void initUserData() {
         tvUserInfo.setText("Hai, " + userLoggedIn.getUsername());
+        if(!"Admin".equals(userLoggedIn.getRole())) {
+            btnMenuRoom.setVisible(false);
+            btnMenuReport.setVisible(false);
+        }
     }
     
     private void initUIGuest() {
