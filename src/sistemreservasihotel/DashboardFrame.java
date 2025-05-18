@@ -24,11 +24,13 @@ import sistemreservasihotel.model.Guest;
 import sistemreservasihotel.model.Room;
 import sistemreservasihotel.model.User;
 import java.sql.Date;
+import java.util.HashMap;
 import sistemreservasihotel.helper.service.PaymentService;
 import sistemreservasihotel.helper.service.ReservationService;
 import sistemreservasihotel.model.Reservation;
 import sistemreservasihotel.model.ReservationOption;
 import sistemreservasihotel.utils.CurrencyUtil;
+import sistemreservasihotel.utils.ReportUtil;
 
 /**
  *
@@ -170,6 +172,8 @@ public class DashboardFrame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         tvUserInfo = new javax.swing.JLabel();
+        btnMenuReport = new javax.swing.JButton();
+        btnSignOut = new javax.swing.JButton();
         mainPanel = new javax.swing.JPanel();
         regisPanel = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -229,6 +233,13 @@ public class DashboardFrame extends javax.swing.JFrame {
         btnPayNow = new javax.swing.JButton();
         jScrollPane6 = new javax.swing.JScrollPane();
         tblPayment = new javax.swing.JTable();
+        report = new javax.swing.JPanel();
+        jLabel17 = new javax.swing.JLabel();
+        btnReportGuest = new javax.swing.JButton();
+        btnReportRooms = new javax.swing.JButton();
+        btnReportReservation = new javax.swing.JButton();
+        btnReportPayment = new javax.swing.JButton();
+        btnReportIncome = new javax.swing.JButton();
 
         jMenu1.setText("jMenu1");
 
@@ -296,6 +307,23 @@ public class DashboardFrame extends javax.swing.JFrame {
         tvUserInfo.setFont(new java.awt.Font("Helvetica Neue", 2, 14)); // NOI18N
         tvUserInfo.setText("label name");
 
+        btnMenuReport.setBackground(new java.awt.Color(204, 204, 255));
+        btnMenuReport.setText("Report");
+        btnMenuReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuReportActionPerformed(evt);
+            }
+        });
+
+        btnSignOut.setBackground(new java.awt.Color(255, 153, 153));
+        btnSignOut.setText("Sign Out");
+        btnSignOut.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnSignOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSignOutActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout menuPanelLayout = new javax.swing.GroupLayout(menuPanel);
         menuPanel.setLayout(menuPanelLayout);
         menuPanelLayout.setHorizontalGroup(
@@ -317,8 +345,15 @@ public class DashboardFrame extends javax.swing.JFrame {
                             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel1)
                             .addComponent(tvUserInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 45, Short.MAX_VALUE)))
+                        .addGap(0, 45, Short.MAX_VALUE))
+                    .addGroup(menuPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnMenuReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuPanelLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnSignOut, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
         );
         menuPanelLayout.setVerticalGroup(
             menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -329,18 +364,22 @@ public class DashboardFrame extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
                 .addComponent(tvUserInfo)
-                .addGap(44, 44, 44)
+                .addGap(29, 29, 29)
+                .addComponent(btnMenuRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(btnMenuGuest, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnMenuReservationRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnMenuRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addComponent(btnMenuCheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnMenuChckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addGap(18, 18, 18)
                 .addComponent(btnMenuPayment, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnMenuReport, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(93, 93, 93)
+                .addComponent(btnSignOut, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -398,28 +437,23 @@ public class DashboardFrame extends javax.swing.JFrame {
         regisPanel.setLayout(regisPanelLayout);
         regisPanelLayout.setHorizontalGroup(
             regisPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, regisPanelLayout.createSequentialGroup()
+                .addContainerGap(65, Short.MAX_VALUE)
+                .addGroup(regisPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(regisPanelLayout.createSequentialGroup()
+                        .addComponent(btnShowGuests, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(regisPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(tvGuestEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tvGuestName, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tvGuestAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tvGuestPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(125, 125, 125))
             .addGroup(regisPanelLayout.createSequentialGroup()
-                .addGap(326, 326, 326)
+                .addGap(265, 265, 265)
                 .addComponent(jLabel5)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, regisPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(regisPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, regisPanelLayout.createSequentialGroup()
-                        .addGroup(regisPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(tvGuestEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tvGuestName, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tvGuestAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tvGuestPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(125, 125, 125))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, regisPanelLayout.createSequentialGroup()
-                        .addComponent(btnShowGuests, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(198, 198, 198))))
-            .addGroup(regisPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(regisPanelLayout.createSequentialGroup()
-                    .addGap(216, 216, 216)
-                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(320, Short.MAX_VALUE)))
         );
         regisPanelLayout.setVerticalGroup(
             regisPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -434,14 +468,11 @@ public class DashboardFrame extends javax.swing.JFrame {
                 .addComponent(tvGuestPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(tvGuestEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(70, 70, 70)
-                .addComponent(btnShowGuests, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(regisPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, regisPanelLayout.createSequentialGroup()
-                    .addContainerGap(520, Short.MAX_VALUE)
-                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(157, 157, 157)))
+                .addGap(55, 55, 55)
+                .addGroup(regisPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnShowGuests, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(272, Short.MAX_VALUE))
         );
 
         mainPanel.add(regisPanel, "regisPanel");
@@ -913,6 +944,90 @@ public class DashboardFrame extends javax.swing.JFrame {
 
         mainPanel.add(payment, "payment");
 
+        report.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel17.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
+        jLabel17.setText("Cetak Laporan");
+
+        btnReportGuest.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        btnReportGuest.setText("Cetak Data Tamu");
+        btnReportGuest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReportGuestActionPerformed(evt);
+            }
+        });
+
+        btnReportRooms.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        btnReportRooms.setText("Cetak Data Kamar");
+        btnReportRooms.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReportRoomsActionPerformed(evt);
+            }
+        });
+
+        btnReportReservation.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        btnReportReservation.setText("Laporan Reservasi");
+        btnReportReservation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReportReservationActionPerformed(evt);
+            }
+        });
+
+        btnReportPayment.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        btnReportPayment.setText("Laporan Pembayaran");
+        btnReportPayment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReportPaymentActionPerformed(evt);
+            }
+        });
+
+        btnReportIncome.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        btnReportIncome.setText("Laporan Pemasukan");
+        btnReportIncome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReportIncomeActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout reportLayout = new javax.swing.GroupLayout(report);
+        report.setLayout(reportLayout);
+        reportLayout.setHorizontalGroup(
+            reportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(reportLayout.createSequentialGroup()
+                .addGroup(reportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(reportLayout.createSequentialGroup()
+                        .addGap(260, 260, 260)
+                        .addComponent(jLabel17))
+                    .addGroup(reportLayout.createSequentialGroup()
+                        .addGap(142, 142, 142)
+                        .addGroup(reportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnReportGuest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnReportRooms, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnReportReservation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnReportPayment, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
+                            .addComponent(btnReportIncome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(180, Short.MAX_VALUE))
+        );
+        reportLayout.setVerticalGroup(
+            reportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(reportLayout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(jLabel17)
+                .addGap(65, 65, 65)
+                .addComponent(btnReportGuest, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnReportRooms, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnReportReservation, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnReportPayment, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnReportIncome, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(305, Short.MAX_VALUE))
+        );
+
+        mainPanel.add(report, "report");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -1194,6 +1309,46 @@ public class DashboardFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnPayNowActionPerformed
 
+    private void btnMenuReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuReportActionPerformed
+        // TODO add your handling code here:
+        CardLayout card = (CardLayout)mainPanel.getLayout();
+        card.show(mainPanel, "report");
+    }//GEN-LAST:event_btnMenuReportActionPerformed
+
+    private void btnReportGuestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportGuestActionPerformed
+        // TODO add your handling code here:
+        ReportUtil.showReport("/Users/fdn-user/JaspersoftWorkspace/LaporanHotel/report_guests.jasper", new HashMap<>());
+    }//GEN-LAST:event_btnReportGuestActionPerformed
+
+    private void btnReportRoomsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportRoomsActionPerformed
+        // TODO add your handling code here:
+        ReportUtil.showReport("/Users/fdn-user/JaspersoftWorkspace/LaporanHotel/report_rooms.jasper", new HashMap<>());
+    }//GEN-LAST:event_btnReportRoomsActionPerformed
+
+    private void btnReportPaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportPaymentActionPerformed
+        // TODO add your handling code here:
+        ReportUtil.showReport("/Users/fdn-user/JaspersoftWorkspace/LaporanHotel/report_payment.jasper", new HashMap<>());
+    }//GEN-LAST:event_btnReportPaymentActionPerformed
+
+    private void btnReportReservationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportReservationActionPerformed
+        // TODO add your handling code here:
+        ReportUtil.showReport("/Users/fdn-user/JaspersoftWorkspace/LaporanHotel/report_reservation.jasper", new HashMap<>());
+    }//GEN-LAST:event_btnReportReservationActionPerformed
+
+    private void btnReportIncomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportIncomeActionPerformed
+        // TODO add your handling code here:
+        ReportUtil.showReport("/Users/fdn-user/JaspersoftWorkspace/LaporanHotel/report_income.jasper", new HashMap<>());
+    }//GEN-LAST:event_btnReportIncomeActionPerformed
+
+    private void btnSignOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignOutActionPerformed
+        // TODO add your handling code here:
+        int confirm = JOptionPane.showConfirmDialog(this, "Apakah Anda yakin ingin keluar?", "Konfirmasi Keluar", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+            this.dispose(); // Tutup Dashboard
+            new LoginForm().setVisible(true); // Tampilkan Login
+        }
+    }//GEN-LAST:event_btnSignOutActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDeleteRoom;
@@ -1201,13 +1356,20 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnMenuCheckOut;
     private javax.swing.JButton btnMenuGuest;
     private javax.swing.JButton btnMenuPayment;
+    private javax.swing.JButton btnMenuReport;
     private javax.swing.JButton btnMenuReservationRoom;
     private javax.swing.JButton btnMenuRoom;
     private javax.swing.JButton btnPayNow;
+    private javax.swing.JButton btnReportGuest;
+    private javax.swing.JButton btnReportIncome;
+    private javax.swing.JButton btnReportPayment;
+    private javax.swing.JButton btnReportReservation;
+    private javax.swing.JButton btnReportRooms;
     private javax.swing.JButton btnReservation;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSaveRoom;
     private javax.swing.JButton btnShowGuests;
+    private javax.swing.JButton btnSignOut;
     private javax.swing.JButton btnStatusCheckIn;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JButton btnUpdateStatusCheckOut;
@@ -1227,6 +1389,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1249,6 +1412,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JPanel pickerCheckIn;
     private javax.swing.JPanel pickerCheckOut;
     private javax.swing.JPanel regisPanel;
+    private javax.swing.JPanel report;
     private javax.swing.JPanel reservePanel;
     private javax.swing.JPanel roomPanel;
     private javax.swing.JTable tblCheckIn;
